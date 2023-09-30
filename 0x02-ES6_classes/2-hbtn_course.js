@@ -40,8 +40,9 @@ class HolbertonCourse {
       throw new TypeError('Students must be an array of strings');
     }
   }
+
   toString() {
-    return `${this._name}\nHolbertonCourse {\n  _name: '${this._name}',\n  _length: ${this._length},\n  _students: [ ${this._students.map(student => `'${student}'`).join(', ')} ]\n}`;
+    return `${this._name}\nHolbertonCourse {\n  _name: '${this._name}',\n  _length: ${this._length},\n  _students: [ ${this._students.map((student) => `'${student}'`).join(', ')} ]\n}`;
   }
 }
 
