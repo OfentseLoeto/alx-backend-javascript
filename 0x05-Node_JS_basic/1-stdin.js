@@ -5,8 +5,8 @@
 const readline = require('readline');
 
 const rl = readline.createInterface({
-    input: ProcessingInstruction.stdin,
-    output: ProcessingInstruction.stdout
+    input: process.stdin,
+    output: process.stdout
 });
 
 console.log('Welcome to Holberton School, what is your name?');
@@ -22,5 +22,14 @@ rl.on('line', (input) => {
     });
 
     rl.on('close', () => {
-        ProcessingInstruction.exit(0);
+	    console.log('This important software is now closing');
+        process.exit(0);
     });
+
+if (!process.stdin.isTTY) {
+	process.stdin.on('end', () => {
+		console.log('This important software is now closing');
+		rl.close();
+		process.exit(0);
+	});
+}
