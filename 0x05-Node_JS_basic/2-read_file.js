@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 /**
- * Reads the database file and counts the number of students in each field.
+ * Reads the database file and counts
+ * the number of students in each field.
  *
  * @param {string} path - The path to the database file.
  */

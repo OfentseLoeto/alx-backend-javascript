@@ -4,32 +4,33 @@
 
 const readline = require('readline');
 
+// Create an interface for reading input from the user
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+	input: process.stdin,
+	output: process.stdout
 });
 
-console.log('Welcome to Holberton School, what is your name?');
+// Display the initial message
+console.log('Welcome to Hoberton School, What is your name?');
 
+// Listen to the user input
 rl.on('line', (input) => {
-    if (input.toLowerCase() === 'exit') {
-        console.log('This important software is now closing');
-        rl.close();
-    } else {
-        console.log(`Your name is: ${input}`);
-        console.log('Welcome to Holberton School, what is your name?');
-    }
-    });
+	// Display the user's name
+	console.log(`What is your name: ${input}`);
+});
 
-    rl.on('close', () => {
-	    console.log('This important software is now closing');
-        process.exit(0);
-    });
+// Listen for the close event
+rl.on('close', () => {
+  // Display the closing message
+  console.log('This important software is now closing');
+  // Exit the process
+  process.exit();
+});
 
-if (!process.stdin.isTTY) {
-	process.stdin.on('end', () => {
-		console.log('This important software is now closing');
-		rl.close();
-		process.exit(0);
-	});
-}
+// Handle the case where the user ends the program with Ctrl+C
+process.on('SIGINT', () => {
+  // Close the readline interface
+  rl.close();
+  // Exit the process
+  process.exit();
+});
