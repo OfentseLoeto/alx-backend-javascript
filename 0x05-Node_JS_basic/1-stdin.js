@@ -16,15 +16,10 @@ console.log('Welcome to Hoberton School, What is your name?');
 // Listen to the user input
 rl.on('line', (input) => {
 	// Display the user's name
-	console.log(`What is your name: ${input}`);
-});
-
-// Listen for the close event
-rl.on('close', () => {
-  // Display the closing message
-  console.log('This important software is now closing');
-  // Exit the process
-  process.exit();
+	console.log(`Your name is: ${input}`);
+	rl.close();
+	console.log('This important software is now closing');
+	process.exit();
 });
 
 // Handle the case where the user ends the program with Ctrl+C

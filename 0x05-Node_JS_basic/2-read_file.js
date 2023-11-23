@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 /**
- * Reads the database file and counts
- * the number of students in each field.
+ * Reads the database file and counts the
+ * number of students in each field.
  *
  * @param {string} path - The path to the database file.
  */
@@ -17,12 +17,12 @@ function countStudents(path) {
     // Count the number of students in each field
     const counts = {};
     lines.forEach(line => {
-      const [firstName, field] = line.split(',');
+      const [firstName, , , field] = line.split(',');
       if (!counts[field]) {
         counts[field] = { count: 0, list: [] };
       }
       counts[field].count += 1;
-      counts[field].list.push(firstName);
+      counts[field].list.push(firstName.trim());
     });
 
     // Log the results
