@@ -19,6 +19,9 @@ function countStudents(path) {
       // Split the data into lines and filter out empty lines
       const lines = data.split('\n').filter(line => line.trim() !== '');
 
+      // Skip the first line (header)
+      const header = lines.shift();
+
       // Count the number of students in each field
       const counts = {};
       lines.forEach(line => {
