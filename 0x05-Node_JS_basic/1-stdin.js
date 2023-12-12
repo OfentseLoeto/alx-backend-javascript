@@ -17,15 +17,6 @@ console.log('Welcome to Hoberton School, What is your name?');
 rl.on('line', (input) => {
 	// Display the user's name
 	console.log(`Your name is: ${input}`);
-	rl.close();
 	console.log('This important software is now closing');
-	process.exit();
-});
-
-// Handle the case where the user ends the program with Ctrl+C
-process.on('SIGINT', () => {
-  // Close the readline interface
-  rl.close();
-  // Exit the process
-  process.exit();
+	rl.close();
 });
