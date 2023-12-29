@@ -2,21 +2,20 @@ const readline = require('readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
-  if (input) {
-    console.log(`Your name is: ${input}`);
-  } else {
+  if (input.toLowerCase() === 'exit') {
     console.log('This important software is now closing');
     rl.close();
+  } else {
+    console.log(`Your name is: ${input}`);
   }
 });
 
-// Handle the case when the user ends the program without entering any name
 rl.on('close', () => {
-  console.log('This important software is now closing');
+  process.exit(0);
 });
