@@ -8,10 +8,15 @@ const rl = readline.createInterface({
 console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
-  console.log(`Your name is: ${input}`);
-  rl.close();
+  if (input) {
+    console.log(`Your name is: ${input}`);
+  } else {
+    console.log('This important software is now closing');
+    rl.close();
+  }
 });
 
+// Handle the case when the user ends the program without entering any name
 rl.on('close', () => {
   console.log('This important software is now closing');
 });
