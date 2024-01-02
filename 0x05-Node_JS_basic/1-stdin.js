@@ -10,7 +10,6 @@ console.log('Welcome to Holberton School, what is your name?');
 rl.on('line', (input) => {
   console.log(`Your name is: ${input}`);
 
-  // Check if input is from a pipe
   if (!process.stdin.isTTY) {
     console.log('This important software is now closing');
     rl.close();
