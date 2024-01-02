@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-
 const fs = require('fs');
 
 function countStudents(path) {
