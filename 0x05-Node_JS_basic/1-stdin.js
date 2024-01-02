@@ -1,21 +1,23 @@
-process.stdout.write('Welcome to Holberton School, what is your name?\n');
+const readline = require('readline');
 
-// Reading user input from stdin
-process.stdin.on('data', (data) => {
-  const name = data.toString().trim();
-
-  // Displaying the user's name
-  process.stdout.write(`Your name is: ${name}\n`);
-
-  // Closing the program
-  process.stdout.write('This important software is now closing\n');
-
-  // Exiting the process
-  process.exit(0);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
-// Handling the case when the user ends the program
-process.on('SIGINT', () => {
-  process.stdout.write('This important software is now closing\n');
+console.log('Welcome to Holberton School, what is your name?');
+
+rl.on('line', (input) => {
+  console.log(`Your name is: ${input}`);
+
+  // Check if input is from a pipe
+  if (!process.stdin.isTTY) {
+    console.log('This important software is now closing');
+    rl.close();
+    process.exit(0);
+  }
+});
+
+rl.on('close', () => {
   process.exit(0);
 });
