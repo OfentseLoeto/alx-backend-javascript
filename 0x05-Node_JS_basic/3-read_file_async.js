@@ -2,30 +2,47 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (error, fileContent) => {
+    fs.readFile(path, 'utf8', (error, data) => {
       if (error) {
         reject(new Error('Cannot load the database'));
         return;
       }
 
-      const lines = fileContent.split('\n').filter(line => line.trim() !== '');
+      // Split the data into lines
+      const lines = data.split('\n');
 
-      const fields = lines[0].split(',').map(field => field.trim());
-      const students = lines.slice(1).map(line => line.split(','));
+      // Filter out empty lines
+      const nonEmptyLines = lines.filter((line) => line.trim() !== '');
 
-      console.log(`Number of students: ${students.length}`);
+      // Calculate the total number of students
+      const numberOfStudents = nonEmptyLines.length - 1; // Exclude the header line
 
-      fields.forEach((field, index) => {
-        const studentsInField = students.filter(student => student[index].trim() !== '').length;
-        const studentNames = students
-          .filter(student => student[index].trim() !== '')
-          .map(student => student[index].trim())
-          .join(', ');
+      console.log(`Number of students: ${numberOfStudents}`);
 
-        console.log(`Number of students in ${field}: ${studentsInField}. List: ${studentNames}`);
-      });
+      // Create an object to store the counts for each field
+      const fieldCounts = {};
 
-      resolve(); // Resolve the promise when done
+      // Iterate over the lines (excluding the header line)
+      for (let i = 1; i < nonEmptyLines.length; i++) {
+        const fields = nonEmptyLines[i].split(',');
+
+        // Update the count for each field
+        const field = fields[3]; // Assuming the field is in the fourth column (0-indexed)
+        fieldCounts[field] = (fieldCounts[field] || 0) + 1;
+      }
+
+      // Log the counts for each field
+      const fieldEntries = Object.entries(fieldCounts);
+      for (let i = 0; i < fieldEntries.length; i++) {
+        const [field, count] = fieldEntries[i];
+        const list = nonEmptyLines.slice(1) // Exclude the header line
+          .filter((line) => line.split(',')[3] === field) // Filter lines for the specific field
+          .map((line) => line.split(',')[0]); // Extract first names
+
+        console.log(`Number of students in ${field}: ${count}. List: ${list.join(', ')}`);
+      }
+
+      resolve();
     });
   });
 }
