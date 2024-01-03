@@ -1,31 +1,24 @@
-const { expect } = require('chai');
 const request = require('request');
-const app = require('./api');
+const { expect } = require('chai');
 
-describe('Index page', () => {
-  // Runs the server before the tests
-  before((done) => {
-    app.listen(7865, () => {
-      done();
-    });
-  });
-
-  it('Correct status code?', (done) => {
+describe('index page', () => {
+  it('correct status code?', () => new Promise((done) => {
     request('http://localhost:7865', (error, response) => {
-      expect(response.statusCode).to.equal(200);
+      expect(response.statusCode).equal(200);
       done();
     });
-  });
+  }));
 
-  it('Correct result?', (done) => {
+  it('correct result?', () => new Promise((done) => {
     request('http://localhost:7865', (error, response, body) => {
-      expect(body).to.equal('Welcome to the payment system');
+      expect(body).equal('Welcome to the payment system');
       done();
     });
-  });
+  }));
 
-  // Close the server after the tests
-  after(() => {
-    app.close();
-  });
+  it('other?', () => new Promise((done) => {
+    // Add other test cases as needed
+    expect(true).equal(true);
+    done();
+  }));
 });
