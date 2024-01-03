@@ -1,43 +1,46 @@
-const { expect } = require('chai');
 const request = require('request');
-const app = require('./api');
+const { expect } = require('chai');
 
-describe('Index page', () => {
-  // Run the server before the tests
-  before((done) => {
-    app.listen(7865, () => {
-      done();
-    });
-  });
-
-  it('Correct status code?', (done) => {
+describe('index page', () => {
+  it('correct status code?', () => new Promise((done) => {
     request('http://localhost:7865', (error, response) => {
-      expect(response.statusCode).to.equal(200);
+      expect(response.statusCode).equal(200);
       done();
     });
-  });
+  }));
 
-  it('Correct result?', (done) => {
+  it('correct result?', () => new Promise((done) => {
     request('http://localhost:7865', (error, response, body) => {
-      expect(body).to.equal('Welcome to the payment system');
+      expect(body).equal('Welcome to the payment system');
       done();
     });
-  });
+  }));
 
-  describe('Cart page', () => {
-    it('Correct status code when :id is a number?', (done) => {
-      request('http://localhost:7865/cart/12', (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
+  it('other?', () => new Promise((done) => {
+    expect(true).equal(true);
+    done();
+  }));
+});
+
+describe('cart page', () => {
+  it('correct status code for cart page with valid :id?', () => new Promise((done) => {
+    request('http://localhost:7865/cart/123', (error, response) => {
+      expect(response.statusCode).equal(200);
+      done();
     });
+  }));
 
-    it('Correct status code when :id is NOT a number (=> 404)?', (done) => {
-      request('http://localhost:7865/cart/hello', (error, response) => {
-        expect(response.statusCode).to.equal(404);
-        done();
-      });
+  it('correct status code for cart page with invalid :id (404)?', () => new Promise((done) => {
+    request('http://localhost:7865/cart/hello', (error, response) => {
+      expect(response.statusCode).equal(404);
+      done();
     });
+  }));
 
-  });
+  it('correct result for cart page with valid :id?', () => new Promise((done) => {
+    request('http://localhost:7865/cart/123', (error, response, body) => {
+      expect(body).equal('Payment methods for cart 123');
+      done();
+    });
+  }));
 });
