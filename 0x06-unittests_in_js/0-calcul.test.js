@@ -8,4 +8,9 @@ describe('calculateNumber', function () {
     assert.strictEqual(calculateNumber(1.2, 3.7), 5);
     assert.strictEqual(calculateNumber(1.5, 3.7), 6);
   });
+
+it('should handle rounding for the second number', () => {
+    // Add test cases for rounding the second number
+    assert.strictEqual(calculateNumber(3.2, 1.5), 5);
+  });
 });
