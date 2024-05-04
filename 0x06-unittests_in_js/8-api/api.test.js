@@ -1,26 +1,19 @@
 const request = require('request');
 const { expect } = require('chai');
+const { startServer, stopServer } = require('./api');
 
 describe('Index page', function() {
-  let server;
-
   before(function() {
-    server = require('./api');
+    startServer();
   });
 
   after(function() {
-    server.close();
+    stopServer();
   });
 
-  it('correct status code', function(done) {
+  it('responds with status code 200 and "Welcome to the payment system"', function(done) {
     request('http://localhost:7865', function(error, response, body) {
       expect(response.statusCode).to.equal(200);
-      done();
-    });
-  });
-
-  it('correct result', function(done) {
-    request('http://localhost:7865', function(error, response, body) {
       expect(body).to.equal('Welcome to the payment system');
       done();
     });
